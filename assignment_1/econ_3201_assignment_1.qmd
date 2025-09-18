@@ -97,7 +97,7 @@ Note: When creating variables based on equation, separate each element in the eq
 
 (a) In statistics, $n$ is often used to denoted the sample size. Set the number of observations $n=1000$.
 (b) Generate two random variables, $u_1\sim U(0,1)$ and $u_2\sim U(0,1)$ with $n/2=500$ observations. That is, create two variables that follow a uniform distribution between 0 and 1 that each have 500 observations. In R, we can create random uniform variables using the `runif(k,min,max)` function, where `k` is number of observations, `min` is the minimum value, and `max` is the maximum value. The default values for `min` and `max` are 0 and 1, respectively. Type `?runif` into your console to learn more.
-(c) Generate two variables $z_1$ and $z_2$ that take on the following values: $$z_1=\sqrt{-2\ln(u_1)}\times\text{cos}(2\pi u_2)$$ and $$z_1=\sqrt{-2\ln(u_1)}\times\text{sin}(2\pi u_2).$$ In R, $\sqrt{\text{  }}$ is computed using `sqrt()`, $\ln$ is computed using `log()`, $\text{cos}$ is computed using `cos()`, and $\text{sin}$ is computed using `sin()`. 
+(c) Generate two variables $z_1$ and $z_2$ that take on the following values: $$z_1=\sqrt{-2\ln(u_1)}\times\text{cos}(2\pi u_2)$$ and $$z_2=\sqrt{-2\ln(u_1)}\times\text{sin}(2\pi u_2).$$ In R, $\sqrt{\text{  }}$ is computed using `sqrt()`, $\ln$ is computed using `log()`, $\text{cos}$ is computed using `cos()`, and $\text{sin}$ is computed using `sin()`. 
 (d) Generate a vector $z=[z_1,z_2]$ 
 (e) Generate two variables $\mu$ (spelled mu) and $\sigma$ (spelled sigma). Set $\mu=5$ and $\sigma=2$. 
 (f) Generate a variable $x=\mu+\sigma\times z$
@@ -119,7 +119,46 @@ curve(dnorm(x, mean = mu, sd = sigma),
       col = "red", lwd = 2, add = TRUE)
 ```
 
-    
+```{r}
+## Part 3.1 has been answered in R script below
+
+# (a) No. of observations set to n = 1000 by using get.
+n <- 1000
+
+# (b) 2 random variables generated
+u1 <- runif(n/2, 0, 1)
+u2 <- runif(n/2, 0, 1)
+
+#> (c) z1 and z2 generated for given values
+#> Note: In the assignment pdf, the 2nd z variable is also named z1, 
+#> I assume that to be a typing mistake, and have corrected it to z2. 
+#> If not so, please do not deduct marks for the same.
+z1 <- sqrt(-2 * log(u1)) * cos(2 * pi * u2)
+z2 <- sqrt(-2 * log(u1)) * sin(2 * pi * u2)
+
+# (d) Vector z created by combining z1 and z2
+z <- c(z1, z2)
+
+# (e) Variables mu and sigma created and assigned given values
+mu <- 5
+sigma <- 2
+
+# (f) Variable x generated and set as defined in the assignment pdf
+x <- mu + sigma * z
+
+# (g) Mean and sd of x calculated 
+x_mean <- mean(x)
+x_sd <- sd(x)
+
+# (g) Histogram plotted as instructed
+hist(x,
+     freq = FALSE,
+     ylab = "Density",
+     xlab = "$x$")
+curve(dnorm(x, mean = mu, sd = sigma),
+      col = "red", lwd = 2, add = TRUE)
+```
+
 ## 3.2. Data frames and Indexing 
 
 A data frame in R is a table-like data structure used to store data in rows and columns, similar to a spreadsheet or a database table. It is one of the most commonly used structures for storing datasets in R. \
@@ -147,12 +186,43 @@ knitr::kable(df,
              format.args = list(big.mark = ","))
 ```
 
-(a) Determine if there are any missing values for the variable `Hospitals`.
-(a) Add a variable called "Total Other Services" to the data frame `df`, where $$\text{Total Other Services} = \text{Dental}+\text{Vision}+\text{Other Professional}.$$ To add a newly created variable to a data frame use the syntax `dataframe$varname <- expression`.
-(a) Are there any years for which Total Other Professionals 
-(a) Another way to add a variable to a data frame is to simply create a new data frame and append the new variable to it. Note: we can use the same data frame name. I.e., `df<-data.frame(df,newvarname = newvar)`. Add the variable "Prescription Drugs" to the `df` data frame using the append method, where presricption drugs is named "Prescribed.Drugs" in the `cihi` data.frame.
-(a) Using a single R command, determine the expenditure on hospitals in 1983.
-(a) Using a singe R command, list the expenditures by year for 2012-2022. 
+(a) Determine if there are any missing values for the variable `Hospitals`. 
+``` {r}
+any(is.na(df$Hospitals))
+#> I have used any(is.na(df$Hospitals)) to check if there are any missing values. 
+#> Since the answer is false, it is sufficient. 
+#> Alternatively, we can also use sum(is.na(df$Hospitals)) if we had any missing values to see how many of those do we have. 
+```
+(b) Add a variable called "Total Other Services" to the data frame `df`, where $$\text{Total Other Services} = \text{Dental}+\text{Vision}+\text{Other Professional}.$$ To add a newly created variable to a data frame use the syntax `dataframe$varname <- expression`. 
+``` {r}
+df$`Total Other Services` <- df$Dental + df$Vision + df$`Other Professionals`
+#> I tried the df[[ ]] method and df$Var.Name methods but I kept getting errors so I am using the backtick method here. 
+#> I will debug for my knowledge later.
+```
+
+(c) Are there any years for which Total Other Professionals 
+``` {r}
+#> The question is incomplete/incorrectly worded. 
+#> I am going to answer it as if it were "Are ther any years for which Total Other Professionals have missing values ?" 
+#> I will search each profession for missing values as well, using any(is.na()) instead of the sum(is.na()) command. 
+any(is.na(df$Dental))
+any(is.na(df$Vision))
+any(is.na(df$Total.Other.Services))
+```
+(d) Another way to add a variable to a data frame is to simply create a new data frame and append the new variable to it. Note: we can use the same data frame name. I.e., `df<-data.frame(df,newvarname = newvar)`. Add the variable "Prescription Drugs" to the `df` data frame using the append method, where presricption drugs is named "Prescribed.Drugs" in the `cihi` data.frame. 
+``` {r}
+df <- data.frame(df, Prescription.Drugs = cihi$Prescribed.Drugs)
+```
+
+(e) Using a single R command, determine the expenditure on hospitals in 1983. 
+``` {r}
+df$Hospitals[df$Year == 1983]
+```
+
+(f) Using a singe R command, list the expenditures by year for 2012-2022. 
+``` {r}
+df[df$Year >= 2012 & df$Year <= 2022, ]
+```
 
 ## 3.3 Other useful R commands. 
 
