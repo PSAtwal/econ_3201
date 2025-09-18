@@ -226,15 +226,51 @@ df[df$Year >= 2012 & df$Year <= 2022, ]
 
 ## 3.3 Other useful R commands. 
 
-Load the `mpg` dataset from the `ggplot2` package using `mpg <-ggplot2::mpg`. (Be sure to install the `gglot2` package before you start.)
+Load the `mpg` dataset from the `ggplot2` package using `mpg <-ggplot2::mpg`. (Be sure to install the `ggplot2` package before you start.)
+``` {r}
+#> ggplot2 package installed using "install.packages("ggplot2")" command. Package loaded in current session using "library(ggplot2)" command/checking-off the relevant box under packages. 
+mpg <-ggplot2::mpg
+```
 
-(a) Subset the data to include only observations from 2008. Search `?subset` in the console. (a) Calculate the maximum and minimum miles per gallon in city limits (`cty`). Seach `?min` in the console.
-(a) Estimate the average miles per gallon within city limits for cars produced in 2008 using the formula $$\text{Average mpg}=\frac{\sum_{i=1}^n \text{cty}_i}{n}.$$ Recall that $n$ is the number of observations. Search `?length` in the console.
-(a) Estimate the average miles per gallon within city limits for cars produced in 2008 using the `mean()` function. 
-(a) Create a variable called `compact`, which takes a value of 1 if the vehichle is a compact and 0 otherwise. Search `?ifelse` in the console.
-(a) Estimate the average miles per gallon within city limits for compact cars. (You may use whichever method you prefer).
-(a) Create a simple scatter plot with city mpg (`cty`) on the x-axis and highway mpg (`hwy`) on the y-axis. Search `?plot` and choose "Generic X-Y Plotting". 
+(a) Subset the data to include only observations from 2008. Search `?subset` in the console. (a) Calculate the maximum and minimum miles per gallon in city limits (`cty`). Seach `?min` in the console. 
+``` {r}
+mpg_2008 <- subset(mpg, year == 2008) 
+
+max_cty <- max(mpg_2008$cty)
+min_cty <- min(mpg_2008$cty)
+```
+
+(b) Estimate the average miles per gallon within city limits for cars produced in 2008 using the formula $$\text{Average mpg}=\frac{\sum_{i=1}^n \text{cty}_i}{n}.$$ Recall that $n$ is the number of observations. Search `?length` in the console.
+``` {r}
+n <- length(mpg_2008$cty)
+avg_mpg_formula <- sum(mpg_2008$cty) / n
+```
+
+(c) Estimate the average miles per gallon within city limits for cars produced in 2008 using the `mean()` function. 
+``` {r}
+avg_mpg_mean <- mean(mpg_2008$cty)
+```
+
+(d) Create a variable called `compact`, which takes a value of 1 if the vehicle is a compact and 0 otherwise. Search `?ifelse` in the console.
+``` {r}
+mpg$compact <- ifelse(mpg$class == "compact", 1, 0)
+```
+
+(e) Estimate the average miles per gallon within city limits for compact cars. (You may use whichever method you prefer).
+``` {r}
+compact_mpg <- subset(mpg, compact == 1)
+avg_compact_cty <- mean(compact_mpg$cty)
+```
+
+(f) Create a simple scatter plot with city mpg (`cty`) on the x-axis and highway mpg (`hwy`) on the y-axis. Search `?plot` and choose "Generic X-Y Plotting". 
     (i) Change the x-axis label using the option `xlab = "City MPG"` and change the y-axis label using the option `ylab = "Highway MPG"`. 
-    (ii) Add the caption "City Versus Highway Fuel Efficiency (MPG)"
+    (ii) Add the caption "City Versus Highway Fuel Efficiency (MPG)" 
     (iii) Cross reference the figure and add the text "Figure 1 shows the fuel efficiency for city driving versus highway driving". 
+    
+    ``` {r}
+plot(mpg$cty, mpg$hwy,
+     xlab = "City MPG",
+     ylab = "Highway MPG",
+     main = "City Versus Highway Fuel Efficiency (MPG)")
+```
  
