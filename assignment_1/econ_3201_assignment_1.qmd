@@ -47,10 +47,28 @@ Answer all questions. Submit both a PDF and Quarto file to the nexus assignment 
 
 # 1. Git and GitHub
 
-(a) Create a GitHub repository called **econ_3201** and connect it to RStudio. 
+(a) Create a GitHub repository called **econ_3201** and connect it to RStudio.
+
+## https://github.com/PSAtwal/econ_3201.git
+
 (b) Create a new R project in this newly created directory called **assignment_1**. (Note, you do not have to click "Create git repository" as the directory is contained in a git enabled directory, i.e., **econ_3201**).
+
+# https://github.com/PSAtwal/econ_3201/blob/94dd4ca46b11aeca306
+# ada5c863657d3d25abcc8/assignment_1/assignment_1.Rproj
+
 (c) Download the assignment PDF and Quarto file the **assignment_1** folder.
+
+## https://github.com/PSAtwal/econ_3201/blob/94dd4ca46b11aeca306ada5c863657
+## d3d25abcc8/assignment_1/econ_3201_assignment_1_questions.pdf
+
+## https://github.com/PSAtwal/econ_3201/blob/94dd4ca46b11aeca306
+## ada5c863657d3d25abcc8/assignment_1/econ_3201_assignment_1.qmd
+
 (d) Commit and push the changes to your **econ_3201** repository on [GitHub.com](GitHub.com).
+
+## Can be verified by looking at the changed comments or using other indicators in the econ_3201 repository or the assignment_1 directory within the same at the following link:
+
+## https://github.com/PSAtwal/econ_3201.git
 
 
 # 2. LaTeX
@@ -83,11 +101,11 @@ An important note is that after writing a command, put a space after the command
 
 Re-write the following equations in LaTeX. 
 
-(a) $E(Y)=y_1p_1+...+y_kp_k=\sum_{i=1}^ky_ip_i$
-(b) $\sigma_Y = \text{Var}(Y) = E[(Y - \mu_y)^2] = \sum_{i=1}^k (y_i - \mu_y)^2p_i$
-(c) $\hat{\beta} = \frac{\sum_{i=1}^n (y - y_i)(x - x_i)}{\sum_{i=1}^n (x - x_i)^2}$
-(d) $P(a \leq Y \leq b) = \int_a^b f_Y(y) dy$
-(e) $\hat{g}(x) = \frac{\frac{1}{nh} \sum_{i=1}^n y_i k\left(\frac{x_i - x}{h}\right)}{\frac{1}{nh} \sum_{i=1}^n k\left(\frac{x_i -x}{h}\right)}$
+(a) $$E(Y)=y_1p_1+...+y_kp_k=\sum_{i=1}^ky_ip_i$$
+(b) $$\sigma_Y = \text{Var}(Y) = E[(Y - \mu_y)^2] = \sum_{i=1}^k (y_i - \mu_y)^2p_i$$
+(c) $$\hat{\beta} = \frac{\sum_{i=1}^n (y - y_i)(x - x_i)}{\sum_{i=1}^n (x - x_i)^2}$$
+(d) $$P(a \leq Y \leq b) = \int_a^b f_Y(y) dy$$
+(e) $$\hat{g}(x) = \frac{\frac{1}{nh} \sum_{i=1}^n y_i k\left(\frac{x_i - x}{h}\right)}{\frac{1}{nh} \sum_{i=1}^n k\left(\frac{x_i -x}{h}\right)}$$
   
 # 3. R
 
@@ -185,26 +203,32 @@ knitr::kable(df,
              align = c(rep('c',7)),
              format.args = list(big.mark = ","))
 ```
+## In answering this part (3.2), no variable names have been assigned in answers where only actions required are indicated to keep answers simple. 
+## If needed they can be assigned as done in part 3.3 as that helps in keeping our code organized and clean and repeatable without the need for repetitive hardcoding. 
 
 (a) Determine if there are any missing values for the variable `Hospitals`. 
 ``` {r}
 any(is.na(df$Hospitals))
 #> I have used any(is.na(df$Hospitals)) to check if there are any missing values. 
 #> Since the answer is false, it is sufficient. 
-#> Alternatively, we can also use sum(is.na(df$Hospitals)) if we had any missing values to see how many of those do we have. 
+#> Alternatively, we can also use sum(is.na(df$Hospitals)) if we had any missing values 
+#> to see how many of those do we have. 
 ```
 (b) Add a variable called "Total Other Services" to the data frame `df`, where $$\text{Total Other Services} = \text{Dental}+\text{Vision}+\text{Other Professional}.$$ To add a newly created variable to a data frame use the syntax `dataframe$varname <- expression`. 
 ``` {r}
 df$`Total Other Services` <- df$Dental + df$Vision + df$`Other Professionals`
-#> I tried the df[[ ]] method and df$Var.Name methods but I kept getting errors so I am using the backtick method here. 
+#> I tried the df[[ ]] method and df$Var.Name methods but I kept getting errors 
+#> so I am using the backtick method here. 
 #> I will debug for my knowledge later.
 ```
 
 (c) Are there any years for which Total Other Professionals 
 ``` {r}
 #> The question is incomplete/incorrectly worded. 
-#> I am going to answer it as if it were "Are ther any years for which Total Other Professionals have missing values ?" 
-#> I will search each profession for missing values as well, using any(is.na()) instead of the sum(is.na()) command. 
+#> I am going to answer it as if it were "Are ther any years for which Total Other 
+#> Professionals have missing values ?" 
+#> I will search each profession for missing values as well, using any(is.na()) 
+#> instead of the sum(is.na()) command. 
 any(is.na(df$Dental))
 any(is.na(df$Vision))
 any(is.na(df$Total.Other.Services))
@@ -228,7 +252,9 @@ df[df$Year >= 2012 & df$Year <= 2022, ]
 
 Load the `mpg` dataset from the `ggplot2` package using `mpg <-ggplot2::mpg`. (Be sure to install the `ggplot2` package before you start.)
 ``` {r}
-#> ggplot2 package installed using "install.packages("ggplot2")" command. Package loaded in current session using "library(ggplot2)" command/checking-off the relevant box under packages. 
+#> ggplot2 package installed using "install.packages("ggplot2")" command. 
+#> Package loaded in current session using "library(ggplot2)" command
+#> /checking-off the relevant box under packages. 
 mpg <-ggplot2::mpg
 ```
 
@@ -267,10 +293,9 @@ avg_compact_cty <- mean(compact_mpg$cty)
     (ii) Add the caption "City Versus Highway Fuel Efficiency (MPG)" 
     (iii) Cross reference the figure and add the text "Figure 1 shows the fuel efficiency for city driving versus highway driving". 
     
-    ``` {r}
+``` {r}
 plot(mpg$cty, mpg$hwy,
      xlab = "City MPG",
      ylab = "Highway MPG",
      main = "City Versus Highway Fuel Efficiency (MPG)")
 ```
- 
