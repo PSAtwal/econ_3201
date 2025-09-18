@@ -83,11 +83,11 @@ An important note is that after writing a command, put a space after the command
 
 Re-write the following equations in LaTeX. 
 
-(a) 
-(b) 
-(c) 
-(d) 
-(e) 
+(a) $E(Y)=y_1p_1+...+y_kp_k=\sum_{i=1}^ky_ip_i$
+(b) $\sigma_Y = \text{Var}(Y) = E[(Y - \mu_y)^2] = \sum_{i=1}^k (y_i - \mu_y)^2p_i$
+(c) $\hat{\beta} = \frac{\sum_{i=1}^n (y - y_i)(x - x_i)}{\sum_{i=1}^n (x - x_i)^2}$
+(d) $P(a \leq Y \leq b) = \int_a^b f_Y(y) dy$
+(e) $\hat{g}(x) = \frac{\frac{1}{nh} \sum_{i=1}^n y_i k\left(\frac{x_i - x}{h}\right)}{\frac{1}{nh} \sum_{i=1}^n k\left(\frac{x_i -x}{h}\right)}$
   
 # 3. R
 
