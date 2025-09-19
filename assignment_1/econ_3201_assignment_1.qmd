@@ -3,43 +3,47 @@ title: |
   | ECON 3201
   | Econometrics for Economics and Finance
 subtitle: "Assignment 1"
+author: 
+ - "Name: Parambir Singh Atwal"
+ - "Student Number: 3196537"
 format: 
   pdf:
-    include-in-header: 
+    include-in-header:
       text: |
         \usepackage{fancyhdr}
         \fancypagestyle{style2}{
         \fancyhf{}
         \fancyhead[R]{Assignment 1}
+        \fancyhead[C]{Name: Parambir Singh Atwal, Student No. 3196537}
         \fancyhead[L]{ECON 3201}
         \fancyfoot[C]{\thepage}
         \renewcommand{\headrulewidth}{1pt}
         }
         \pagestyle{style2}
 execute: 
-  eval: false
-  echo: true
+  eval: true
+  echo: false
 ---
 
 ```{r}
 #| label: setup 
 #| include: FALSE
 
-install.packages("tikzDevice")
+# install.packages("tikzDevice")
 # Load the tikzDevice library
-library(tikzDevice)
+# library(tikzDevice)
 
 # Set the default graphics device to tikz for the entire document
-knitr::opts_chunk$set(dev = 'tikz', fig.width = 6, fig.height = 4)
+# knitr::opts_chunk$set(dev = 'tikz', fig.width = 6, fig.height = 4)
 
 set.seed(42)
 ```
 
-\vspace{-1in}
+\vspace{-0.7in}
 
 ## Due Date
 
-**September 18, 2025** at the start of class
+**September 21, 2025** at 23:59 hours
 
 ## Directions
 
