@@ -31,10 +31,10 @@ execute:
 
 # install.packages("tikzDevice")
 # Load the tikzDevice library
-# library(tikzDevice)
+library(tikzDevice)
 
 # Set the default graphics device to tikz for the entire document
-# knitr::opts_chunk$set(dev = 'tikz', fig.width = 6, fig.height = 4)
+knitr::opts_chunk$set(dev = 'pdf', fig.width = 6, fig.height = 4)
 
 set.seed(42)
 ```
@@ -293,13 +293,50 @@ avg_compact_cty <- mean(compact_mpg$cty)
 ```
 
 (f) Create a simple scatter plot with city mpg (`cty`) on the x-axis and highway mpg (`hwy`) on the y-axis. Search `?plot` and choose "Generic X-Y Plotting". 
-    (i) Change the x-axis label using the option `xlab = "City MPG"` and change the y-axis label using the option `ylab = "Highway MPG"`. 
-    (ii) Add the caption "City Versus Highway Fuel Efficiency (MPG)" 
-    (iii) Cross reference the figure and add the text "Figure 1 shows the fuel efficiency for city driving versus highway driving". 
-    
+``` {r}
+plot(mpg$cty, mpg$hwy,
+     xlab = 'cty', 
+     ylab = 'hwy')
+```
+    (i) Change the x-axis label using the option `xlab = "City MPG"` and change 
+    the y-axis label using the option `ylab = "Highway MPG"`. 
 ``` {r}
 plot(mpg$cty, mpg$hwy,
      xlab = "City MPG",
-     ylab = "Highway MPG",
-     main = "City Versus Highway Fuel Efficiency (MPG)")
+     ylab = "Highway MPG")
 ```
+     
+    (ii) Add the caption "City Versus Highway Fuel Efficiency (MPG)" 
+    
+    ## Part (ii) and (iii) answered together below as adding a caption assigns
+    the figure no. 1 to it.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    (iii) Cross reference the figure and add the text "Figure 1 shows the fuel
+    efficiency for city driving versus highway driving". 
+
+``` {r}
+#| label: fig-cty-hwy
+#| fig-cap: City Versus Highway Fuel Efficiency (MPG)
+plot(mpg$cty, mpg$hwy, 
+     type = "p", 
+     xlab = "City MPG", 
+     ylab = "Highway MPG")
+```
+@fig-cty-hwy shows the fuel efficiency for city driving versus highway driving.
