@@ -1,0 +1,8 @@
+"0",""
+"0","# I think it may have been omitted by mistake so I added M=15 in the legend below."
+"0",""
+"0","legend(""topright"", "
+"0","       c(""N(0, 1)"", ""M=5"", ""M=15"", ""M=25""), "
+"0","       col = 1:4, "
+"0","       lty = 1, "
+"0","       lwd = 2)"

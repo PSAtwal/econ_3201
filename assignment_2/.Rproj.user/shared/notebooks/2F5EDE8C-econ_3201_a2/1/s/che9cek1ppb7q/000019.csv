@@ -1,0 +1,7 @@
+"0","# Ans 2.4"
+"0","curve(dnorm(x), from = -5, to = 5, "
+"0","      xlim = c(-5, 5), "
+"0","      ylab = ""Density"", "
+"0","      main = ""Densities of t Distribution"", "
+"0","      col = 1, "
+"0","      lwd = 2)"
