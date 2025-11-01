@@ -1,0 +1,333 @@
+---
+title: |
+  | ECON 3201 
+  | Econometrics for Economics and Finance
+subtitle: |
+    | Assignment 3
+    | Due October 31, 2025
+author: "Parambir Singh Atwal"
+format: 
+  pdf:
+    include-in-header: 
+      text: |
+        \usepackage{pdflscape}
+        \usepackage{longtable}
+        \usepackage{fancyhdr}
+        \fancypagestyle{style1}{
+        \fancyhf{}
+        \fancyhead[R]{Assignment 3}
+        \fancyhead[C]{Name: Parambir Singh Atwal, Student No. 3196537}
+        \fancyhead[L]{ECON 3201}
+        \fancyfoot[C]{\thepage}
+        \renewcommand{\headrulewidth}{0.4pt}
+        }
+
+        \fancypagestyle{style2}{
+        \fancyhf{}
+        \fancyhead[R]{Term Test 1}
+        \fancyhead[C]{Name: Parambir Singh Atwal, Student No. 3196537}
+        \fancyhead[L]{ECON 3201}
+        \fancyfoot[C]{\thepage}
+        \renewcommand{\headrulewidth}{1pt}
+        }
+        \pagestyle{style2}
+
+editor: visual
+---
+
+\vspace{-1in}
+
+# Instructions
+
+Complete your midterm exam using R and type your answers in LaTeX. Answer all questions. Please complete your assignment using Quarto. Submit both your Quarto file and pdf/word output file.
+
+# Questions
+
+## Question 1
+
+$X$ and $Y$ are discrete random variables with the following joint distribution. Use the data frame `d` to answer your questions:
+
+```{r}
+#| echo: true
+#| tbl-cap: "Joint Distribution of $X$ and $Y$"
+#| label: tbl-dist
+library(kableExtra)
+d <- data.frame('\\hspace{1pt}' = c(rep('Value of X',3)),
+                '\\hspace{1pt}' = c(1,5,8),
+                '20' = c(0.07,0.32,0.05),
+                '30' = c(0.10,0.05,0.15),
+                '40' = c(0.04,0.03,0.19),
+                check.names = FALSE)
+
+
+knitr::kable(d,
+             format = "latex",
+             booktabs = T,
+             escape = FALSE,
+             align = c("l","c","c","c","c"),
+             longtable= T )%>% 
+  kable_styling(position = "center")%>%
+  add_header_above(c(" " = 1, " " = 1, "Value of Y" = 3))%>%
+  collapse_rows(columns = 1:2, valign = "top")
+```
+
+a)  Calculate the marginal probability distribution of $Y$. \[2 Marks\]
+
+```{r}
+# Marginal probabilities for Y
+marginal_Y <- colSums(d[, 3:5])
+marginal_Y
+```
+
+b)  Calculate the mean of $Y$. \[3 Marks\]
+
+$$\mu_Y = E(Y) = \sum y \cdot P(Y=y)$$
+
+```{r}
+y_values <- c(20, 30, 40)
+mean_Y <- sum(y_values * marginal_Y)
+mean_Y
+```
+
+Mean of $Y$: $\mu_Y = 20 \times 0.44 + 30 \times 0.30 + 40 \times 0.26 = 28.2$
+
+c)  Calculate the variance of $Y$. \[3 Marks\]\
+
+$$\sigma_Y^2 = E(Y^2) - [E(Y)]^2 = \sum y^2 \cdot P(Y=y) - \mu_Y^2$$
+
+```{r}
+variance_Y <- sum(y_values^2 * marginal_Y) - mean_Y^2
+variance_Y
+```
+
+Variance of $Y$: $\sigma_Y^2 = 20^2 \times 0.44 + 30^2 \times 0.30 + 40^2 \times 0.26 - 28.2^2 = 67.76$
+
+## Question 2
+
+Using R commands, compute the following probabilities:
+
+a)  If $Y$ is distributed $N(3,9)$, find $Pr(Y>1)$. \[2 Marks\]
+
+```{r}
+prob_a <- 1 - pnorm(1, mean = 3, sd = sqrt(9))
+prob_a
+```
+
+b)  If $Y$ is distributed $N(5,2)$, find $Pr(6\leq Y\leq 8)$. \[3 Marks\]\
+
+```{r}
+prob_b <- pnorm(8, mean = 5, sd = sqrt(2)) - pnorm(6, mean = 5, sd = sqrt(2))
+prob_b
+```
+
+$$Pr(6 \leq Y \leq 8) = \Phi\left(\frac{8-5}{\sqrt{2}}\right) - \Phi\left(\frac{6-5}{\sqrt{2}}\right) = \Phi(2.1213) - \Phi(0.7071) = 0.2213$$
+
+## Question 3
+
+The random variable $Y$ be a random variable with mean $\mu$ and variance $\sigma^2$. Type your answers.
+
+a)  Let $Z$ denote the standardized version of $Y$. What is the functional form of $Z$? \[1 Mark\]
+
+$$Z = \frac{Y - \mu}{\sigma}$$
+
+b)  Show that the expected value of of $Z$, $E(Z)$, in part (a) is 0. \[3 Marks\]
+
+$$E(Z) = E\left(\frac{Y - \mu}{\sigma}\right) = \frac{1}{\sigma}E(Y - \mu) = \frac{1}{\sigma}[E(Y) - \mu] = \frac{1}{\sigma}[\mu - \mu] = 0$$
+
+c)  Show that the variance of $Z$, $E\left[(Z-E(Z))^2\right]$, in part (a) is 1. \[3 Marks\]\
+
+$$Var(Z) = E[(Z - E(Z))^2] = E[Z^2] = E\left[\left(\frac{Y - \mu}{\sigma}\right)^2\right] = \frac{1}{\sigma^2}E[(Y - \mu)^2] = \frac{1}{\sigma^2} \cdot \sigma^2 = 1$$
+
+## Question 4
+
+@tbl-vax displays the joint probabilities of covid-19 vaccination status and hospitalization with covid-19.
+
+```{r}
+#| echo: true
+#| tbl-cap: "Joint Distribution of Covid-19 Vaccination Status and Hospitalizations Due to Covid-19"
+#| label: tbl-vax
+library(kableExtra)
+d <- data.frame('\\hspace{1pt}' = c('Hospitalized',''),
+                '\\hspace{1pt}' = c('Yes','No'),
+                'Yes' = c(0.007,0.666),
+                'No' = c(0.075,0.252),
+                check.names = FALSE)
+
+
+knitr::kable(d,
+             format = "latex",
+             booktabs = T,
+             escape = FALSE,
+             align = c("l","c","c","c"),
+             longtable= T)%>% 
+  kable_styling(position = "center")%>%
+  add_header_above(c(" " = 1, " " = 1, "Vaccinated" = 2))
+```
+
+a)  Compute the probability that an individual is vaccinated conditional on being hospitalized with covid-19, i.e. $Pr(\text{Vaccinated = Yes}|\text{Hospitalized = Yes})$. \[2 Marks\]
+
+```{r}
+prob_vax_given_hosp <- 0.007 / (0.007 + 0.075)
+prob_vax_given_hosp
+```
+
+b)  Using Bayes' equation, compute the probability of being hospitalized with covid-19 conditional on being vaccinated, i.e., $Pr(\text{Hospitalized = Yes}|\text{Vaccinated = Yes})$. \[3 Marks\]\
+
+```{r}
+pr_hosp <- 0.007 + 0.075  
+pr_vax <- 0.007 + 0.666   
+pr_hosp_given_vax <- (prob_vax_given_hosp * pr_hosp) / pr_vax
+pr_hosp_given_vax
+```
+
+## Question 5
+
+Let $Y_1,...Y_n$ be i.i.d. draws from the population with mean $\mu_Y$. Type your answers.
+
+a)  What is the bias of an estimator? \[1 Mark\]
+
+The bias of an estimator $\hat{\theta}$ for a parameter $\theta$ is defined as: $$Bias(\hat{\theta}) = E(\hat{\theta}) - \theta$$ An estimator is unbiased if its bias is zero.
+
+b)  Show that $\bar{Y}$ is an unbiased estimator of $\mu_Y$. \[5 Marks\]\
+
+The sample mean is $\bar{Y} = \frac{1}{n}\sum_{i=1}^n Y_i$.
+
+Taking expectations: $$E(\bar{Y}) = E\left(\frac{1}{n}\sum_{i=1}^n Y_i\right) = \frac{1}{n}\sum_{i=1}^n E(Y_i) = \frac{1}{n}\sum_{i=1}^n \mu_Y = \frac{1}{n} \cdot n\mu_Y = \mu_Y$$
+
+Since $E(\bar{Y}) = \mu_Y$, the sample mean is an unbiased estimator of the population mean.
+
+## Question 6
+
+A researcher claims that the average height of adult men in a city is 175 cm. To test this claim, a random sample of 30 adult men is selected, and their heights are recorded. The sample has a mean height of 172 cm and a standard deviation of 8 cm.
+
+a)  State the null and alternative hypotheses for this test. \[1 Mark\]
+
+$H_0: \mu = 175$ (The average height is 175 cm)
+
+$H_1: \mu \neq 175$ (The average height is not 175 cm)
+
+b)  Calculate the test statistic using R commands. \[2 Marks\]
+
+The test statistic for a one-sample t-test is: $$t = \frac{\bar{X} - \mu_0}{s/\sqrt{n}}$$
+
+```{r}
+sample_mean <- 172
+pop_mean <- 175
+sample_sd <- 8
+n <- 30
+
+test_stat <- (sample_mean - pop_mean) / (sample_sd / sqrt(n))
+test_stat
+```
+
+c)  Determine the critical value(s) at the 5% significance level using the `pnorm()` command. \[1 Mark\]
+
+```{r}
+critical_value <- qnorm(0.975)  # This gives us the z-value needed
+p_value_upper <- pnorm(critical_value)  # This should give us 0.975
+p_value_upper
+
+critical_value_lower <- qnorm(0.025)
+p_value_lower <- pnorm(critical_value_lower)  # This should give us 0.025
+p_value_lower
+
+critical_value # Finally, here we'll have our critical value
+```
+
+d)  Based on the test statistic and critical value(s), decide whether to reject the null hypothesis.
+
+Since $|t| = 2.05396 > 1.96$, we reject the null hypothesis at the 5% significance level.
+
+e)  Construct a 95% confidence interval for the true mean height using R commands. \[3 Marks\]
+
+The 95% confidence interval is: $$\bar{X} \pm t_{\alpha/2, n-1} \cdot \frac{s}{\sqrt{n}}$$
+
+```{r}
+t_critical <- qt(0.975, df = n-1)
+margin_error <- t_critical * (sample_sd / sqrt(n))
+ci_lower <- sample_mean - margin_error
+ci_upper <- sample_mean + margin_error
+
+ci_lower
+ci_upper
+```
+
+## Question 7
+
+In a randomized controlled trial, 100 participants are randomly assigned to either a treatment group or a control group. The treatment group has an average improvement score of 80 with a standard deviation of 10, while the control group has an average improvement score of 75 with a standard deviation of 12.
+
+a)  Formulate the null and alternative hypotheses to test if the treatment has a significant causal effect. \[2 Marks\]
+
+$H_0: \mu_T = \mu_C$ (The treatment has no effect)
+
+$H_1: \mu_T > \mu_C$ (The treatment has a positive effect)
+
+b)  Compute the test statistic for the difference between means using R commands. \[2 Marks\]
+
+The test statistic for two independent samples is: $$t = \frac{\bar{X}_T - \bar{X}_C}{\sqrt{\frac{s_T^2}{n_T} + \frac{s_C^2}{n_C}}}$$
+
+```{r}
+mean_treat <- 80
+mean_control <- 75
+sd_treat <- 10
+sd_control <- 12
+n <- 50  # Each group has 50 participants (100 total, right ? I think so.)
+
+se <- sqrt((sd_treat^2/n) + (sd_control^2/n))
+test_stat_7 <- (mean_treat - mean_control) / se
+test_stat_7
+```
+
+c)  Assuming a significance level of 5%, conclude whether the treatment has a significant causal effect. \[2 Marks\]
+
+```{r}
+critical_value_7 <- qnorm(0.95)
+critical_value_7
+
+# p-value
+p_value_7 <- 1 - pnorm(test_stat_7)
+p_value_7
+```
+
+Critical value: $z_{0.95} = 1.644854$
+
+Since $t = 2.34 > 1.644854$ (or p-value = 0.0096 \< 0.05), we reject the null hypothesis.
+
+\newpage
+
+## Standard Normal Probabilities ($Z$-Table)
+
+```{r}
+#| echo: false
+
+# Define the Z values and step size
+z_values <- round(seq(-3.4, 3.4, by = 0.1),2)  # Z values from -3.4 to 3.4 with a step of 0.1
+z_decimal <- seq(0, 0.09, by = 0.01)  # Decimal part of Z from 0.00 to 0.09
+
+# Create an empty data frame to store the Z-table
+z_table <- data.frame(matrix(ncol = length(z_decimal) + 1, nrow = length(z_values)))
+
+# Column names for Z-decimals (e.g., 0.00, 0.01, etc.)
+colnames(z_table) <- c("Z", paste0("0.0", 0:9))
+
+# Fill the first column with Z-values (e.g., -3.4, -3.3, etc.)
+z_table$Z <- z_values
+
+# Populate the Z-table with cumulative probabilities using pnorm()
+for (i in 1:length(z_values)) {
+  for (j in 1:length(z_decimal)) {
+    if(z_values[i]<0){
+    z_table[i, j + 1] <- round(pnorm(z_values[i] - z_decimal[j]), 4)
+    }else{
+      z_table[i, j + 1] <- round(pnorm(z_values[i] + z_decimal[j]), 4)
+    }
+  }
+}
+
+knitr::kable(z_table,
+             format = "latex",
+             booktabs = T,
+             escape = FALSE,
+             longtable= T)
+z_table
+```

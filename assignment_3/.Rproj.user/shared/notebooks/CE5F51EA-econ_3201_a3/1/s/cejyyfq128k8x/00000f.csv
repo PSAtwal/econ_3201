@@ -1,0 +1,7 @@
+"0","y_values <- c(20, 30, 40)"
+"0","mean_Y <- sum(y_values * marginal_Y)"
+"0","mean_Y"
+"1","[1]"
+"1"," 28.2"
+"1","
+"

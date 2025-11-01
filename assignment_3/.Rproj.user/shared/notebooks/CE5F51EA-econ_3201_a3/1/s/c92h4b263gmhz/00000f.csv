@@ -1,0 +1,6 @@
+"0","variance_Y <- sum(y_values^2 * marginal_Y) - mean_Y^2"
+"0","variance_Y"
+"1","[1]"
+"1"," 66.76"
+"1","
+"

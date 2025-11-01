@@ -1,0 +1,6 @@
+"0","prob_b <- pnorm(8, mean = 5, sd = sqrt(2)) - pnorm(6, mean = 5, sd = sqrt(2))"
+"0","prob_b"
+"1","[1]"
+"1"," 0.2228026"
+"1","
+"
