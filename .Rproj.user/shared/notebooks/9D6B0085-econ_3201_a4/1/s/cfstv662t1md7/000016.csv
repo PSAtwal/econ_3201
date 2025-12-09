@@ -1,0 +1,6 @@
+"0","    x <- Growth$tradeshare"
+"0","    y <- Growth$growth"
+"0","    plot(x, y,"
+"0","    xlab = ""TradeShare"","
+"0","    ylab = ""Growth"","
+"0","    main = ""Growth vs TradeShare"")"

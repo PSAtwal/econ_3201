@@ -1,0 +1,4 @@
+"0","    plot(x, y,"
+"0","         xlab = ""TradeShare"","
+"0","         ylab = ""Growth"","
+"0","         main = ""Growth vs Tradeshare with the Line of Regression"")"

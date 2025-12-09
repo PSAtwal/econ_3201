@@ -1,0 +1,7 @@
+"0","    x <- Earnings_and_Height$height"
+"0","    y <- Earnings_and_Height$earnings"
+"0","    plot(x, y, col.axis = ""green"","
+"0","         xlab = ""Height"","
+"0","         ylab = ""Annual Earnings"","
+"0","         main = ""Scatterplot of Earnings vs Height"", "
+"0","         pch = 1, col = ""blue"")"
